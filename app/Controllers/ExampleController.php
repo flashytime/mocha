@@ -15,4 +15,13 @@ class ExampleController extends Controller
     {
         return ['title' => 'Hello World!'];
     }
+
+    public function test()
+    {
+        $this->validate($this->request(), [
+            'title' => 'required|numeric|min:3|max:5',
+            'email' => 'required|email',
+        ]);
+        var_dump($this->request()->all());
+    }
 }

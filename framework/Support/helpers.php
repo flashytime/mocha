@@ -57,3 +57,16 @@ if (!function_exists('app_path')) {
         return app()->path() . ($path ? DIRECTORY_SEPARATOR . $path : $path);
     }
 }
+
+if (!function_exists('array_get')) {
+    /**
+     * @param array $array
+     * @param string $key
+     * @param mixed $default
+     * @return mixed
+     */
+    function array_get($array, $key, $default = null)
+    {
+        return isset($array[$key]) ? $array[$key] : $default;
+    }
+}
