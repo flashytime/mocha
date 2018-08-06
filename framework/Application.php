@@ -14,11 +14,13 @@ namespace Mocha\Framework;
 class Application extends Container
 {
     /**
+     * The router instance.
      * @var Router
      */
     public $router;
 
     /**
+     * The base path of the application.
      * @var string
      */
     protected $basePath;
@@ -35,6 +37,7 @@ class Application extends Container
     }
 
     /**
+     * Get the version of the Framework.
      * @return string
      */
     public function version()
@@ -43,6 +46,7 @@ class Application extends Container
     }
 
     /**
+     * Get the base path for the application.
      * @return string
      */
     public function basePath()
@@ -51,6 +55,7 @@ class Application extends Container
     }
 
     /**
+     * Get the path to the application "app" directory.
      * @return string
      */
     public function path()
@@ -59,7 +64,7 @@ class Application extends Container
     }
 
     /**
-     * 执行App并返回response
+     * Run the application and send the response.
      */
     public function run()
     {

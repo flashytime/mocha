@@ -22,18 +22,19 @@ use Closure;
 class Router
 {
     /**
+     * The application instance.
      * @var Application
      */
     public $app;
 
     /**
-     * 路由
+     * All of the routes waiting to be registered.
      * @var array
      */
     protected $routes = [];
 
     /**
-     * 路由组
+     * The route group.
      * @var array
      */
     protected $groups = [];
@@ -48,7 +49,7 @@ class Router
     }
 
     /**
-     * 设置路由组
+     * Register a route group
      * @param array $attributes
      * @param Closure $callback
      */
@@ -74,7 +75,7 @@ class Router
     }
 
     /**
-     * 设置各种路由
+     * Register a route dynamically
      * @param $method
      * @param $arguments
      * @return $this
@@ -90,7 +91,7 @@ class Router
     }
 
     /**
-     * 设置路由
+     * Add a route.
      * @param $method
      * @param $uri
      * @param $action
@@ -114,7 +115,7 @@ class Router
     }
 
     /**
-     * 执行路由
+     * Dispatch the incoming request and find route.
      * @param Request $request
      * @return Response
      */
@@ -133,6 +134,7 @@ class Router
     }
 
     /**
+     * Call the given Closure / "class@method"
      * @param callable|string $callback
      * @return mixed
      */

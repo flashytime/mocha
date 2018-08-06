@@ -17,36 +17,37 @@ use ReflectionClass;
 class Container
 {
     /**
+     * The current globally available container.
      * @var static
      */
     protected static $instance;
 
     /**
-     * 容器的 bindings
+     * The container's bindings.
      * @var array
      */
     protected $bindings = [];
 
     /**
-     * 存储单例标记和单例
+     * The container's singleton instances.
      * @var array
      */
     protected $singletons = [];
 
     /**
-     * 缓存ReflectionClass
+     * Cached ReflectionClass objects indexed by class/interface names.
      * @var array
      */
     private $reflections = [];
 
     /**
-     * 缓存依赖
+     * Cached dependencies indexed by class/interface names.
      * @var array
      */
     private $dependencies = [];
 
     /**
-     * 设置container的实例
+     * Set the shared instance of the container.
      * @param \Mocha\Framework\Container|null $container
      * @return static
      */
@@ -56,7 +57,7 @@ class Container
     }
 
     /**
-     * 获取container的实例
+     * Get the globally available instance of the container.
      * @return static
      */
     public static function getInstance()
@@ -69,7 +70,7 @@ class Container
     }
 
     /**
-     * 在 Container 注册一个 binding
+     * Register a binding in the container.
      * @param string $abstract
      * @param \Closure|string|null $concrete
      * @param bool $singleton
@@ -94,7 +95,7 @@ class Container
     }
 
     /**
-     * 在 Container 上注册一个单例的 binding
+     * Register a singleton binding in the container.
      * @param string $abstract
      * @param \Closure|string|null $concrete
      */
@@ -104,7 +105,7 @@ class Container
     }
 
     /**
-     * 根据容器中的绑定，给出 $abstract 的实例
+     * Resolve the given type from the container.
      * @param string $abstract
      * @param array $parameters
      * @return mixed
@@ -131,7 +132,7 @@ class Container
     }
 
     /**
-     * 构建 $concrete 对应的对象
+     * Instantiate a concrete instance of the given type.
      * @param string $concrete
      * @param array $parameters
      * @return mixed
@@ -152,7 +153,7 @@ class Container
     }
 
     /**
-     * 创建关于 $abstract 和 $concrete 的闭包
+     * Get the Closure to be used when building a type.
      * @param string $abstract
      * @param string $concrete
      * @return Closure
@@ -167,7 +168,7 @@ class Container
     }
 
     /**
-     * 获取类的反射和依赖
+     * Returns the reflections and dependencies of the specified class.
      * @param string $class
      * @return array
      * @throws \Exception

@@ -14,10 +14,10 @@ namespace Mocha\Framework;
 class Request
 {
     /**
-     * 获取GET参数
-     * @param null $key
-     * @param null $default
-     * @return null
+     * Get one or all of the GET parameters
+     * @param string|null $key
+     * @param mixed $default
+     * @return mixed
      */
     public function get($key = null, $default = null)
     {
@@ -29,10 +29,10 @@ class Request
     }
 
     /**
-     * 获取POST参数
-     * @param null $key
-     * @param null $default
-     * @return null
+     * Get one or all of the POST parameters
+     * @param string|null $key
+     * @param mixed $default
+     * @return mixed
      */
     public function post($key = null, $default = null)
     {
@@ -44,8 +44,8 @@ class Request
     }
 
     /**
-     * 获取全部参数
-     * @return array|mixed|null
+     * Get all of the input for the request.
+     * @return array
      */
     public function all()
     {
@@ -57,10 +57,10 @@ class Request
     }
 
     /**
-     * 获取任一输入参数
-     * @param null $key
-     * @param null $default
-     * @return array|mixed|null
+     * Retrieve an input item from the request.
+     * @param string|null $key
+     * @param mixed $default
+     * @return mixed
      */
     public function input($key = null, $default = null)
     {
@@ -74,10 +74,10 @@ class Request
     }
 
     /**
-     * 获取json
-     * @param null $key
-     * @param null $default
-     * @return array|mixed|null
+     * Get the JSON payload for the request.
+     * @param string|null $key
+     * @param mixed $default
+     * @return mixed
      */
     public function json($key = null, $default = null)
     {
@@ -91,7 +91,7 @@ class Request
     }
 
     /**
-     * 判断当前请求是否是传输json
+     * Determine if the request is sending JSON.
      * @return bool
      */
     public function isJson()
@@ -100,6 +100,7 @@ class Request
     }
 
     /**
+     * Determine if this is a GET request.
      * @return bool
      */
     public function isGet()
@@ -108,6 +109,7 @@ class Request
     }
 
     /**
+     * Determine if this is a POST request.
      * @return bool
      */
     public function isPost()
@@ -116,6 +118,7 @@ class Request
     }
 
     /**
+     * Determine if the request is the result of an AJAX call.
      * @return bool
      */
     public function isAjax()
@@ -124,6 +127,7 @@ class Request
     }
 
     /**
+     * Get the request method.
      * @return string
      */
     public function getMethod()
@@ -132,6 +136,7 @@ class Request
     }
 
     /**
+     * Get the current path info for the request.
      * @return string
      */
     public function getPathInfo()
@@ -147,6 +152,6 @@ class Request
             return '/';
         }
 
-        return (string) $pathInfo;
+        return (string)$pathInfo;
     }
 }

@@ -40,7 +40,7 @@ class Response
     }
 
     /**
-     * 设置响应码
+     * Set the response status code.
      * @param int $statusCode
      */
     public function setStatusCode($statusCode)
@@ -49,7 +49,7 @@ class Response
     }
 
     /**
-     * 设置响应内容
+     * Set the response content.
      * @param mixed $content
      * @return $this
      */
@@ -67,6 +67,7 @@ class Response
     }
 
     /**
+     * Set a header on the Response.
      * @param string $key
      * @param string $value
      * @return $this
@@ -79,7 +80,7 @@ class Response
     }
 
     /**
-     * 发送响应头和内容
+     * Send HTTP headers and content.
      */
     public function send()
     {

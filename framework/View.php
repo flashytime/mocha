@@ -14,15 +14,22 @@ namespace Mocha\Framework;
 class View
 {
     /**
+     * The name of the view.
      * @var string
      */
     protected $view;
 
     /**
+     * The array of view data.
      * @var array
      */
     protected $data;
 
+    /**
+     * View constructor.
+     * @param string $view
+     * @param array $data
+     */
     public function __construct($view, $data = [])
     {
         $this->view = $view;
@@ -30,6 +37,7 @@ class View
     }
 
     /**
+     * Get the string contents of the view.
      * @return string
      * @throws \Exception
      */
@@ -56,6 +64,7 @@ class View
     }
 
     /**
+     * Get the path to the view file.
      * @param string $view
      * @return string
      */
