@@ -25,7 +25,7 @@ class Request
             return $_GET;
         }
 
-        return isset($_GET[$key]) ? $_GET[$key] : $default;
+        return array_get($_GET, $key, $default);
     }
 
     /**
@@ -40,7 +40,7 @@ class Request
             return $_POST;
         }
 
-        return isset($_POST[$key]) ? $_POST[$key] : $default;
+        return array_get($_POST, $key, $default);
     }
 
     /**
@@ -70,7 +70,7 @@ class Request
             return $all;
         }
 
-        return isset($all[$key]) ? $all[$key] : $default;
+        return array_get($all, $key, $default);
     }
 
     /**
@@ -87,7 +87,7 @@ class Request
             return $json;
         }
 
-        return isset($json[$key]) ? $json[$key] : $default;
+        return array_get($json, $key, $default);
     }
 
     /**
