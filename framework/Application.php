@@ -26,6 +26,12 @@ class Application extends Container
     protected $basePath;
 
     /**
+     * All of the loaded configuration files.
+     * @var array
+     */
+    protected $loadedConfigurations = [];
+
+    /**
      * Application constructor.
      * @param null $basePath
      */
@@ -34,6 +40,9 @@ class Application extends Container
         static::setInstance($this);
         $this->basePath = $basePath;
         $this->router = new Router($this);
+        $this->singleton('config', function () {
+            return new Config();
+        });
     }
 
     /**
@@ -61,6 +70,23 @@ class Application extends Container
     public function path()
     {
         return $this->basePath . DIRECTORY_SEPARATOR . 'app';
+    }
+
+    /**
+     * Load a configuration file into the application.
+     * @param string $name
+     */
+    public function configure($name)
+    {
+        if (isset($this->loadedConfigurations[$name])) {
+            return;
+        }
+        $this->loadedConfigurations[$name] = true;
+
+        $path = $this->basePath() . '/config/' . $name . '.php';
+        if (file_exists($path)) {
+            $this->make('config')->set($name, require $path);
+        }
     }
 
     /**

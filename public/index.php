@@ -9,6 +9,8 @@ require __DIR__ . '/../vendor/autoload.php';
 
 $app = new \Mocha\Framework\Application(realpath(__DIR__ . '/../'));
 
+$app->configure('app');
+
 $app->router->group(['namespace' => 'Mocha\App\Controllers'], function ($router) {
     require __DIR__ . '/../app/routes.php';
 });

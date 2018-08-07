@@ -7,9 +7,11 @@
 
 use \Mocha\Framework\Container;
 use \Mocha\Framework\View;
+use \Mocha\Framework\Config;
 
 if (!function_exists('app')) {
     /**
+     * Get the available container instance.
      * @param string $make
      * @param array $parameters
      * @return mixed|\Mocha\Framework\Application
@@ -24,8 +26,26 @@ if (!function_exists('app')) {
     }
 }
 
+if (!function_exists('config')) {
+    /**
+     * Get the specified configuration value.
+     * @param array|string $key
+     * @param mixed $default
+     * @return mixed
+     */
+    function config($key = null, $default = null)
+    {
+        if (is_null($key)) {
+            return app('config');
+        }
+
+        return app('config')->get($key, $default);
+    }
+}
+
 if (!function_exists('view')) {
     /**
+     * Get the evaluated view contents for the given view.
      * @param string $view
      * @param array $data
      * @return \Mocha\Framework\View
@@ -38,6 +58,7 @@ if (!function_exists('view')) {
 
 if (!function_exists('base_path')) {
     /**
+     * Get the base path for the application.
      * @param string $path
      * @return string
      */
@@ -49,6 +70,7 @@ if (!function_exists('base_path')) {
 
 if (!function_exists('app_path')) {
     /**
+     * Get the path to the application "app" directory.
      * @param string $path
      * @return string
      */
