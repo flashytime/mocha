@@ -129,7 +129,7 @@ class Router
             }
             throw new \Exception("Route [$pathInfo] not found.", 404);
         } catch (\Exception $e) {
-            return new Response($e->getMessage(), $e->getCode());
+            return $this->app->handleException($e);
         }
     }
 
@@ -145,7 +145,11 @@ class Router
             if (!$action) {
                 throw new \InvalidArgumentException('Method not provided.', 500);
             }
-            $callback = [$this->app->make($controller), $action];
+            $controller = $this->app->make($controller);
+            if (!method_exists($controller, $action)) {
+                throw new \BadMethodCallException("Method [$action] not found.", 500);
+            }
+            $callback = [$controller, $action];
         }
 
         return call_user_func($callback);

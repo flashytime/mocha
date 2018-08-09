@@ -7,6 +7,10 @@
 
 namespace Mocha\Framework;
 
+use Mocha\Framework\Exception\ExceptionHandler;
+use Monolog\Logger;
+use Monolog\Handler\RotatingFileHandler;
+
 /**
  * Class Application
  * @package Mocha\Framework
@@ -39,9 +43,32 @@ class Application extends Container
     {
         static::setInstance($this);
         $this->basePath = $basePath;
+        $this->bootstrap();
+        $this->registerExceptionHandler();
+    }
+
+    /**
+     * Bootstrap the application and register the core instances.
+     * @return void
+     */
+    protected function bootstrap()
+    {
         $this->router = new Router($this);
+
         $this->singleton('config', function () {
             return new Config();
+        });
+
+        $this->singleton('request', function () {
+            return new Request();
+        });
+
+        $this->singleton('log', function () {
+            $logConfig = config('app.log');
+            $filename = $this->runtimePath() . '/' . trim($logConfig['path'], '/') . '/' . $logConfig['name'];
+
+            return new Logger('mocha',
+                [new RotatingFileHandler($filename, $logConfig['maxFiles'], $logConfig['level'])]);
         });
     }
 
@@ -73,8 +100,18 @@ class Application extends Container
     }
 
     /**
+     * Get the path to the runtime directory.
+     * @return string
+     */
+    public function runtimePath()
+    {
+        return $this->basePath . DIRECTORY_SEPARATOR . 'runtime';
+    }
+
+    /**
      * Load a configuration file into the application.
      * @param string $name
+     * @return void
      */
     public function configure($name)
     {
@@ -91,11 +128,44 @@ class Application extends Container
 
     /**
      * Run the application and send the response.
+     * @return void
      */
     public function run()
     {
-        $request = $this->make(Request::class);
+        $request = $this->make('request');
         $response = $this->router->dispatch($request);
         $response->send();
+    }
+
+    /**
+     * Register the exception handler and error handler for the application.
+     * @return void
+     */
+    protected function registerExceptionHandler()
+    {
+        error_reporting(-1);
+
+        set_error_handler(function ($level, $message, $file = '', $line = 0) {
+            if (error_reporting() & $level) {
+                throw new \ErrorException($message, 0, $level, $file, $line);
+            }
+        });
+
+        set_exception_handler(function ($e) {
+            $this->handleException($e)->send();
+        });
+    }
+
+    /**
+     * Handle the exception and return the response.
+     * @param \Exception $e
+     * @return \Mocha\Framework\Response
+     */
+    public function handleException($e)
+    {
+        $handler = $this->make(ExceptionHandler::class);
+        $handler->report($e);
+
+        return $handler->render($this->make('request'), $e);
     }
 }

@@ -18,10 +18,10 @@ class ExampleController extends Controller
 
     public function test()
     {
-        $this->validate($this->request(), [
+        $this->validate(request()->all(), [
             'title' => 'required|numeric|min:3|max:5',
             'email' => 'required|email',
         ]);
-        var_dump($this->request()->all());
+        var_dump(request()->all());
     }
 }

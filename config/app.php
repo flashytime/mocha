@@ -8,5 +8,12 @@
 return [
     'env' => 'local',
     'debug' => true,
-    'timezone' => 'UTC'
+    'timezone' => 'UTC',
+
+    'log' => [
+        'path' => 'logs',
+        'name' => 'app.log',
+        'maxFiles' => 100,
+        'level' => \Monolog\Logger::DEBUG
+    ],
 ];

@@ -7,6 +7,8 @@
 
 namespace Mocha\Framework;
 
+use Mocha\Framework\Exception\ValidateException;
+
 /**
  * Class Controller
  * @package Mocha\Framework
@@ -14,29 +16,17 @@ namespace Mocha\Framework;
 class Controller
 {
     /**
-     * @return Request
-     */
-    public function request()
-    {
-        return app(Request::class);
-    }
-
-    public function response()
-    {
-
-    }
-
-    /**
-     * @param Request $request
+     * @param array $data
      * @param array $rules
      * @param array $messages
+     * @return void
      * @throws \Exception
      */
-    public function validate(Request $request, array $rules, array $messages = [])
+    public function validate(array $data, array $rules, array $messages = [])
     {
-        $validator = new Validator($request->all(), $rules, $messages);
+        $validator = new Validator($data, $rules, $messages);
         if ($validator->fails()) {
-            throw new \Exception(json_encode($validator->getErrors()));
+            throw new ValidateException(json_encode($validator->getErrors()));
         }
     }
 }

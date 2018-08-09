@@ -32,6 +32,7 @@ class Config
      * Set a given configuration value.
      * @param string $key
      * @param mixed $value
+     * @return void
      */
     public function set($key, $value)
     {

@@ -97,6 +97,7 @@ class Validator
     /**
      * Set the validation rules.
      * @param array $rules
+     * @return void
      */
     public function setRules(array $rules)
     {
@@ -108,6 +109,7 @@ class Validator
 
     /**
      * Run the validator's rules against its data.
+     * @return void
      */
     public function validate()
     {
@@ -127,6 +129,7 @@ class Validator
      * Validate a given attribute against a rule.
      * @param string $attribute
      * @param string $rule
+     * @return void
      */
     protected function validateAttribute($attribute, $rule)
     {
@@ -147,6 +150,7 @@ class Validator
      * @param string $attribute
      * @param string $rule
      * @param array $parameters
+     * @return void
      */
     protected function addError($attribute, $rule, $parameters)
     {
@@ -385,6 +389,7 @@ class Validator
      * @param int $count
      * @param array $parameters
      * @param string $rule
+     * @return void
      */
     private function checkParameterCount($count, $parameters, $rule)
     {

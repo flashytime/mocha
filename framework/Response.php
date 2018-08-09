@@ -81,6 +81,7 @@ class Response
 
     /**
      * Send HTTP headers and content.
+     * @return void
      */
     public function send()
     {
@@ -88,6 +89,7 @@ class Response
         foreach ($this->headers as $key => $value) {
             header($key . ': ' . $value);
         }
+
         echo $this->content;
     }
 }

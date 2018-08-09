@@ -26,6 +26,17 @@ if (!function_exists('app')) {
     }
 }
 
+if (!function_exists('request')) {
+    /**
+     * Get the Request instance
+     * @return \Mocha\Framework\Request
+     */
+    function request()
+    {
+        return app('request');
+    }
+}
+
 if (!function_exists('config')) {
     /**
      * Get the specified configuration value.
