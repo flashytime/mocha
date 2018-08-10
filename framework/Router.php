@@ -76,8 +76,8 @@ class Router
 
     /**
      * Register a route dynamically
-     * @param $method
-     * @param $arguments
+     * @param string $method
+     * @param array $arguments
      * @return $this
      */
     public function __call($method, $arguments)
@@ -92,9 +92,10 @@ class Router
 
     /**
      * Add a route.
-     * @param $method
-     * @param $uri
-     * @param $action
+     * @param string $method
+     * @param string $uri
+     * @param string $action
+     * @return void
      */
     public function addRoute($method, $uri, $action)
     {
