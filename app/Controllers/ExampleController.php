@@ -8,6 +8,7 @@
 namespace Mocha\App\Controllers;
 
 use Mocha\Framework\Controller;
+use Mocha\Framework\Facades\Log;
 
 class ExampleController extends Controller
 {
@@ -23,5 +24,6 @@ class ExampleController extends Controller
             'email' => 'required|email',
         ]);
         var_dump(request()->all());
+        Log::info(json_encode(request()->all()));
     }
 }

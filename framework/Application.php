@@ -8,6 +8,7 @@
 namespace Mocha\Framework;
 
 use Mocha\Framework\Exception\ExceptionHandler;
+use Mocha\Framework\Facades\Facade;
 use Monolog\Logger;
 use Monolog\Handler\RotatingFileHandler;
 
@@ -70,6 +71,8 @@ class Application extends Container
             return new Logger('mocha',
                 [new RotatingFileHandler($filename, $logConfig['maxFiles'], $logConfig['level'])]);
         });
+
+        Facade::setFacadeApp($this);
     }
 
     /**
